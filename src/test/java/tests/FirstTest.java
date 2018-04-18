@@ -1,7 +1,8 @@
 package tests;
 
-import org.junit.Test;
+
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Test;
 import util.DriverFactory;
 
 

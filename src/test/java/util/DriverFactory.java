@@ -2,15 +2,20 @@ package util;
 
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
+
+import java.util.concurrent.TimeUnit;
 
 public class DriverFactory {
 
     private static WebDriver driver;
     private static BrowserType type;
+
+    private static final long DEFAULT_TIMEOUT = 2;
+
 
     public enum BrowserType{CHROME, FIREFOX, SAFARI}
 
@@ -22,6 +27,9 @@ public class DriverFactory {
             quitAndClean();
             setup(type);
         }
+
+        setImplicitWait();
+        driver.manage().timeouts().pageLoadTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
 
         return driver;
     }
@@ -43,6 +51,16 @@ public class DriverFactory {
         }
 
     }
+
+    private static void setImplicitWait(){
+        setCustomWait(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+    }
+
+    private static void setCustomWait(long l, TimeUnit timeUnit){
+        driver.manage().timeouts().implicitlyWait(l, timeUnit);
+    }
+
+
 
     public static void quitAndClean(){
         if(driver != null){
