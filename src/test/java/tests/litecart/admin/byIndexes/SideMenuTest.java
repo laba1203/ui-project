@@ -46,6 +46,7 @@ public class SideMenuTest {
     @Test
     public void test2_verifyHeaders() {
         List<WebElement> items = driver.findElements(By.xpath("//ul[@id = 'box-apps-menu']/li"));
+
         for (int i = 1; i <= items.size(); i++) {
             //click to Item:
             getItemElement(i).click();

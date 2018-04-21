@@ -1,4 +1,4 @@
-package pages.admin;
+package pages.admin.common;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -8,21 +8,18 @@ import pages.AbstractElementsContainer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminPage extends AbstractElementsContainer {
+public class LeftMenu extends AbstractElementsContainer{
 
+    private static final By menuItemsLocator = By.xpath("//ul[@id='box-apps-menu']/li");
     private List<MenuItem> items;
-    private static final By itemsLocator = By.xpath("//ul[@id='box-apps-menu']/li");
 
-    public AdminPage(){
+
+    public LeftMenu(){
         setElements();
     }
 
-    public String getHeaderText(){
-        return driver.findElement(By.xpath("//h1")).getText();
-    }
-
     public MenuItem findItemByName(String name){
-        for (MenuItem item :
+        for (pages.admin.common.MenuItem item :
                 items) {
             if(item.getText().equals(name)){
                 return item;
@@ -32,10 +29,9 @@ public class AdminPage extends AbstractElementsContainer {
         return null;
     }
 
-
     private void setElements(){
         items = new ArrayList<>();
-        List<WebElement> itemsElements = driver.findElements(itemsLocator);
+        List<WebElement> itemsElements = driver.findElements(menuItemsLocator);
         for (WebElement element :
                 itemsElements) {
             items.add(new MenuItem(element));

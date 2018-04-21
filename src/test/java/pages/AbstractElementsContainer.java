@@ -5,8 +5,7 @@ import util.DriverFactory;
 
 import static util.DriverFactory.BrowserType.CHROME;
 
-public class AbstractElementsContainer {
+public abstract class AbstractElementsContainer {
     protected WebDriver driver = DriverFactory.getDriver(CHROME);
-
 
 }

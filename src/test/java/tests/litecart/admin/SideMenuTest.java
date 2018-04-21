@@ -6,7 +6,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import pages.admin.AdminPage;
+import pages.admin.main.MainAdminPage;
 import pages.login.LoginPage;
 import util.DriverFactory;
 
@@ -18,12 +18,10 @@ public class SideMenuTest {
     private static final String USER_NAME = "admin";
     private static final String PASSWORD = "admin";
 
-    private WebDriver driver;
-
 
     @BeforeClass
     public void setupDriver(){
-        driver = DriverFactory.getDriver(CHROME);
+        WebDriver driver = DriverFactory.getDriver(CHROME);
         driver.navigate().to(URL);
     }
 
@@ -41,12 +39,12 @@ public class SideMenuTest {
 
     @Test(dataProvider = "testData")
     public void test2_checkHeader(String itemName, String subItemName, String expectedHeader){
-        AdminPage adminPage = new AdminPage();
+        MainAdminPage adminPage = new MainAdminPage();
         adminPage = adminPage.findItemByName(itemName).clickMenuItem();
         if(!subItemName.equals("N/A")) {
             adminPage.findItemByName(itemName).findSubItem(subItemName).click();
         }
-        Assert.assertEquals(new AdminPage().getHeaderText(), expectedHeader);
+        Assert.assertEquals(new MainAdminPage().getHeaderText(), expectedHeader);
     }
 
 

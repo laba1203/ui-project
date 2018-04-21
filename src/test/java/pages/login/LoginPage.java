@@ -3,7 +3,7 @@ package pages.login;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pages.AbstractElementsContainer;
-import pages.admin.AdminPage;
+import pages.admin.main.MainAdminPage;
 
 public class LoginPage extends AbstractElementsContainer {
 
@@ -27,9 +27,9 @@ public class LoginPage extends AbstractElementsContainer {
         return new LoginPage();
     }
 
-    public AdminPage clickLogin(){
+    public MainAdminPage clickLogin(){
         loginButton.click();
-        return new AdminPage();
+        return new MainAdminPage();
     }
 
 

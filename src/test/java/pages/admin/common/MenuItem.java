@@ -1,9 +1,11 @@
-package pages.admin;
+package pages.admin.common;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import pages.AbstractElementsContainer;
+import pages.admin.main.MainAdminPage;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +14,14 @@ public class MenuItem extends AbstractElementsContainer {
     private List<WebElement> subItems = new ArrayList<>();
 
 
-    MenuItem(WebElement itemElement){
+    public MenuItem(WebElement itemElement){
         item = itemElement;
     }
 
 
-    public AdminPage clickMenuItem(){
+    public MainAdminPage clickMenuItem(){
         item.click();
-        return new AdminPage();
+        return new MainAdminPage();
     }
 
 
