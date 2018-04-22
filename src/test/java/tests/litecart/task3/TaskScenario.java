@@ -34,7 +34,7 @@ public class TaskScenario {
         driver.navigate().to(URL);
     }
 
-    @AfterClass
+//    @AfterClass
     public void quit(){
         DriverFactory.quitAndClean();
     }
@@ -103,8 +103,6 @@ public class TaskScenario {
                 .removeAllOrders();
         Assert.assertEquals(checkoutPage.getOrdersRowsSize(), 0, "FAILED: Not all orders have been deleted");
     }
-
-
 
 
 }

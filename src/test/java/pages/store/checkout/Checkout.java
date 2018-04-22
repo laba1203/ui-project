@@ -11,14 +11,12 @@ import java.util.List;
 public class Checkout extends AbstractElementsContainer{
     //table[contains(@class, 'dataTable')]//tr/td[@class = 'item']
     private static final By orderSummaryRowLctr = By.xpath("//td[@class = 'item']");
-    private static final By removeButtonLctr = By.cssSelector("button[name = 'remove_cart_item']");
+//    private static final By removeButtonLctr = By.cssSelector("button[name = 'remove_cart_item']");
 
     private static final By firstShortcutLctr = By.xpath("//ul[@class = 'shortcuts']/li[1]/a");
-
     private static final By firstRemoveBtnLctr = By.xpath("//ul[@class = 'items']/li[1]//button[@name='remove_cart_item']");
 
     private List<WebElement> orderSummaryRows;
-    private List<WebElement> removeButtons;
 
 
     public Checkout(){
@@ -27,10 +25,10 @@ public class Checkout extends AbstractElementsContainer{
 
 
     public Checkout removeAllOrders(){
-        while (orderSummaryRows.size() > 0){
-//            removeVisibleProduct();
+        while (orderSummaryRows.size() > 1){
             removeFirstOrder();
         }
+        removeOrder(orderSummaryRows.size());
         return new Checkout();
     }
 
@@ -38,34 +36,23 @@ public class Checkout extends AbstractElementsContainer{
         int initialOrdersSize = orderSummaryRows.size();
         WebElement firstShortcut = driver.findElement(firstShortcutLctr);
         firstShortcut.click();
-        WebElement deleteButton = driver.findElement(firstRemoveBtnLctr);
-        deleteButton.click();
 
+        removeOrder(initialOrdersSize);
+    }
+
+    private void removeOrder(int previousOrdersCount){
+        WebElement deleteButton = DriverFactory.getWait(3, 500)
+                .until(ExpectedConditions.elementToBeClickable(firstRemoveBtnLctr));
+        deleteButton.click();
         DriverFactory.getWait(5, 500)
-                        .until(ExpectedConditions.numberOfElementsToBe(orderSummaryRowLctr, initialOrdersSize - 1));
+                .until(ExpectedConditions.numberOfElementsToBe(orderSummaryRowLctr, previousOrdersCount - 1));
+        System.out.println("LOG: Element is deleted");
         setElements();
     }
 
 
-
-//    private void removeVisibleProduct(){
-//        setElements();
-//        int initialOrdersSize = orderSummaryRows.size();
-//        for (WebElement el:
-//             removeButtons) {
-//            if(el.isDisplayed()){
-//                el.click();
-//                DriverFactory.getWait(5, 500)
-//                        .until(ExpectedConditions.numberOfElementsToBe(orderSummaryRowLctr, initialOrdersSize));
-//                break;
-//            }
-//        }
-//        setElements();
-//    }
-
     private void setElements(){
         orderSummaryRows = driver.findElements(orderSummaryRowLctr);
-        removeButtons = driver.findElements(removeButtonLctr);
     }
 
     public int getOrdersRowsSize(){

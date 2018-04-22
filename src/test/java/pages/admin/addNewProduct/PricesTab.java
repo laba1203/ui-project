@@ -17,6 +17,7 @@ public class PricesTab extends AddNewProduct{
 
     public PricesTab setPrice(long value){
         price = driver.findElement(priceLctr);
+        price.clear();
         price.sendKeys(String.valueOf(value));
         return new PricesTab();
     }
