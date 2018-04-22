@@ -1,0 +1,7 @@
+<suite name="Task 3" preserve-order="true" group-by-instances="true">
+    <test name="Task Scenario" preserve-order="true" >
+        <classes>
+            <class name="tests.litecart.task3.TaskScenario"/>
+        </classes>
+    </test>
+</suite>
