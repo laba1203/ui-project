@@ -5,6 +5,7 @@ import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
@@ -12,7 +13,8 @@ import java.util.concurrent.TimeUnit;
 
 public class DriverFactory {
 
-    private static WebDriver driver;
+//    private static WebDriver driver;
+    private static EventFiringWebDriver driver;
     private static BrowserType type;
 
     private static final long DEFAULT_TIMEOUT = 2;
@@ -35,6 +37,8 @@ public class DriverFactory {
         return driver;
     }
 
+    /** Driver without Logging:
+
     private static void setup(BrowserType type){
         DriverFactory.type = type;
 
@@ -50,6 +54,26 @@ public class DriverFactory {
             default:
                 Assert.fail("FAILED: Unknown web driver type <" + type.toString() + ">");
         }
+    }
+
+    **/
+
+    private static void setup(BrowserType type){
+        DriverFactory.type = type;
+
+        switch (type){
+            case CHROME:
+                ChromeDriverManager.getInstance().setup();
+                driver = new EventFiringWebDriver(new ChromeDriver());
+                break;
+            case FIREFOX:
+                FirefoxDriverManager.getInstance().setup();
+                driver = new EventFiringWebDriver(new FirefoxDriver());
+                break;
+            default:
+                Assert.fail("FAILED: Unknown web driver type <" + type.toString() + ">");
+        }
+        driver.register(new Listener());
     }
 
     private static void setImplicitWait(){

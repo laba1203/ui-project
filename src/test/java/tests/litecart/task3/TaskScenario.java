@@ -71,7 +71,6 @@ public class TaskScenario {
                 .selectCurrency(1)
                 //save changes
                 .save();
-
         //verify that product has been added to the Catalog
         catalog = catalog.search(productName);
         Assert.assertEquals(catalog.getRows().size(), 1, "FAILED: Incorrect products count");
