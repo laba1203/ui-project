@@ -34,7 +34,7 @@ public class TaskScenario {
         driver.navigate().to(URL);
     }
 
-//    @AfterClass
+    @AfterClass
     public void quit(){
         DriverFactory.quitAndClean();
     }
@@ -66,7 +66,8 @@ public class TaskScenario {
                 .setDescription("Some test description")
                 //populate Prices Tab
                 .openPricesTab()
-                .setPrice(100)
+                .setPurchasePrice(100)
+                .setPriceWithTaxUSD(100)
                 .selectCurrency(1)
                 //save changes
                 .save();
