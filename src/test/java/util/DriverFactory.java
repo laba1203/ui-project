@@ -5,6 +5,7 @@ import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.util.concurrent.TimeUnit;
@@ -49,7 +50,6 @@ public class DriverFactory {
             default:
                 Assert.fail("FAILED: Unknown web driver type <" + type.toString() + ">");
         }
-
     }
 
     private static void setImplicitWait(){
@@ -60,6 +60,10 @@ public class DriverFactory {
         driver.manage().timeouts().implicitlyWait(l, timeUnit);
     }
 
+    public static WebDriverWait getWait(long timeOutInSeconds, long sleepInMillis) {
+        return new WebDriverWait(getDriver(type), timeOutInSeconds, sleepInMillis);
+
+    }
 
 
     public static void quitAndClean(){
