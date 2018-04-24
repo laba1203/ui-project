@@ -1,4 +1,4 @@
-package tests.litecart.task3;
+package tests.litecart.task3.v1;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -103,6 +103,9 @@ public class TaskScenario {
                 .removeAllOrders();
         Assert.assertEquals(checkoutPage.getOrdersRowsSize(), 0, "FAILED: Not all orders have been deleted");
     }
+
+
+
 
 
 }
